@@ -27,4 +27,13 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.status(200).json(book);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ err: err.message });
+  }
+});
 module.exports = router;
