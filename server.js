@@ -12,7 +12,9 @@ const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/books_app_api
 mongoose.Promise = global.Promise;
 
 // DB
-mongoose.connect(mongoURI, () => console.log('Mongo running at: ', mongoURI));
+mongoose.connect(mongoURI, { useMongoClient: true },
+  () => console.log('Mongo running at: ', mongoURI)
+);
 
 // CONTROLLERS
 const booksController = require('./controllers/books');
