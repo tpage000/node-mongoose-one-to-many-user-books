@@ -9,12 +9,14 @@ require('pretty-error').start();
 const app        = express();
 const PORT       = process.env.PORT || 2017;
 const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/books_app_api_test'
-mongoose.Promise = global.Promise;
 
 // DB
-mongoose.connect(mongoURI, { useMongoClient: true },
-  () => console.log('Mongo running at: ', mongoURI)
-);
+mongoose.connect(mongoURI, { useMongoClient: true });
+const db = mongoose.connection;
+db.on('error', (err) => console.log('Mongo error: ', err));
+db.on('connected', () => console.log('Mongo connected at: ', mongoURI));
+db.on('disconnected', () => console.log('Mongo disconnected'));
+mongoose.Promise = global.Promise;
 
 // CONTROLLERS
 const booksController = require('./controllers/books');
@@ -31,4 +33,4 @@ app.use('/users', usersController);
 app.get('/', (req, res) => res.status(200).json({ message: 'simple books api' }));
 
 // LISTEN
-app.listen(PORT, () => console.log('web server running on port: ', PORT));
+app.listen(PORT, () => console.log('App running on port: ', PORT));
