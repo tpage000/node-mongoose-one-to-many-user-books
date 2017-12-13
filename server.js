@@ -2,7 +2,6 @@
 const express    = require('express');
 const mongoose   = require('mongoose');
 const morgan     = require('morgan');
-const bodyParser = require('body-parser');
 require('pretty-error').start();
 
 // CONFIG
@@ -23,8 +22,8 @@ const booksController = require('./controllers/books');
 const usersController = require('./controllers/users');
 
 // MIDDLEWARE
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(morgan('dev'));
 app.use('/books', booksController);
 app.use('/users', usersController);
