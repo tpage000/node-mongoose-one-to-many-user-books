@@ -6,8 +6,8 @@ require('pretty-error').start();
 
 // CONFIG
 const app        = express();
-const PORT       = process.env.PORT || 2017;
-const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/books_app_api_test'
+const PORT       = process.env.PORT || 2080;
+const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/books_users_api'
 
 // DB
 mongoose.connect(mongoURI, { useMongoClient: true });
@@ -32,4 +32,4 @@ app.use('/users', usersController);
 app.get('/', (req, res) => res.status(200).json({ message: 'simple books api' }));
 
 // LISTEN
-app.listen(PORT, () => console.log('App running on port: ', PORT));
+app.listen(PORT, () => console.log('BOOKS app running on port: ', PORT));
